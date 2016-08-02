@@ -18,7 +18,10 @@ Cell types available are based on Izhikevich, 2007 book:
 
 Usage: 
 nrniv -python izhi2007Figs.py 
-test1(name of cell) eg. test1('RS') or test1('TC_burst')
+cell=izh07.IzhiCell()
+recorder(cell, cell.sec(0.5)._ref_v)
+test1(cell, 'RS', 'RS')
+
 '''
 
 from neuron import h,gui

@@ -28,7 +28,6 @@ import os, sys, collections
 import numpy as np
 from neuron import h, gui
 h.load_file('stdrun.hoc')
-import izhi2007Figs as iz07fig
 import izhi2007Wrapper as izh07
 import __main__
 py = __main__
@@ -36,7 +35,6 @@ h.tstop=500
 h.cvode_active(0)
 h.dt=0.1
 izh, cell07 = None, None # must be declared here since needs to be imported elsewhere
-
 
 type2003 = collections.OrderedDict([
   #                                 a         b     c         d    vviv      tstop
@@ -110,6 +108,7 @@ name, params = None, None
 
 def p (nm, pm=None) :
   global name, vviv, params, vvset
+  import izhi2007Figs as iz07fig
   if pm is None : pm = choices[izhtype][2][nm]
   name, params = nm, pm
   if newmodel():
