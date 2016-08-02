@@ -43,7 +43,7 @@ UNITS {
 
 : Parameters from Izhikevich 2007, MIT Press for regular spiking pyramidal cell
 PARAMETER {
-  C = 100 : Capacitance
+  C = 1 : Capacitance
   k = 0.7
   vr = -60 (mV) : Resting membrane potential
   vt = -40 (mV) : Membrane threhsold
@@ -84,7 +84,7 @@ ASSIGNED {
 : Initial conditions
 INITIAL {
   V = vr
-  u = 0.2*vr
+  u = 0.0
   t0 = t
   gAMPA = 0
   gNMDA = 0
@@ -126,7 +126,7 @@ BREAKPOINT {
   
   : Calculate neuronal dynamics; -I since I = -I_{syn}, which is really what I is as I've defined it above
   Vpre = V
-  V = V + delta*(k*(V-vr)*(V-vt) - u - I + Iin)/C  : Calculate voltage
+  V = V + delta*(k*(V-vr)*(V-vt) - u - I + Iin)/(C*100)  : Calculate voltage
 
   if (Vpre<=c && V>vpeak) {V=c+1} : if just spiked, wait at least 1 timestep before increasing V>vpeak again, so V reset value takes effect; WATCH statement requires V to cross the vpeak threshod)
 
@@ -141,7 +141,7 @@ BREAKPOINT {
         u = u + delta*a*(0-u)
        }
        else { 
-        u = u + delta*a*((0.025*(V-d)^3)-u)
+        u = u + delta*a*((0.025*(V-d)*(V-d)*(V-d))-u)
        }
      }
 

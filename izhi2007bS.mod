@@ -45,7 +45,7 @@ UNITS {
 
 : Parameters from Izhikevich 2007, MIT Press for regular spiking pyramidal cell
 PARAMETER {
-  C = 100 : Capacitance
+  C = 1 : Capacitance
   k = 0.7
   vr = -60 (mV) : Resting membrane potential
   vt = -40 (mV) : Membrane threhsold
@@ -75,14 +75,14 @@ STATE {
 
 : Initial conditions
 INITIAL {
-  u = 0.2*vr
+  u = 0.0
   derivtype=2
   net_send(0,1) : Required for the WATCH statement to be active; v=vr initialization done there
 }
 
 : Define neuron dynamics
 BREAKPOINT {
-  SOLVE states METHOD derivimplicit  : cnexp
+  SOLVE states METHOD euler
   i = -(k*(v-vr)*(v-vt) - u + Iin)/C/1000
 }
 

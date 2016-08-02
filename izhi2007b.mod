@@ -45,7 +45,7 @@ UNITS {
 
 : Parameters from Izhikevich 2007, MIT Press for regular spiking pyramidal cell
 PARAMETER {
-  C = 100 : Capacitance
+  C = 1 : Capacitance
   k = 0.7
   vr = -60 (mV) : Resting membrane potential
   vt = -40 (mV) : Membrane threhsold
@@ -72,7 +72,7 @@ ASSIGNED {
 
 : Initial conditions
 INITIAL {
-  u = 0.2*vr
+  u = 0.0
   derivtype=2
   net_send(0,1) : Required for the WATCH statement to be active; v=vr initialization done there
 }
@@ -111,20 +111,6 @@ BREAKPOINT {
 
   t0=t : Reset last time so delta can be calculated in the next time step
   i = -(k*(v-vr)*(v-vt) - u + Iin)/C/1000
-}
-
-FUNCTION derivfunc () {
-  if (celltype==5 && derivtype==2) { : For FS neurons, include nonlinear U(v): U(v) = 0 when v<vb ; U(v) = 0.025(v-vb) when v>=vb (d=vb=-55)
-    derivfunc = a*(0-u)
-  } else if (celltype==5 && derivtype==1) { : For FS neurons, include nonlinear U(v): U(v) = 0 when v<vb ; U(v) = 0.025(v-vb) when v>=vb (d=vb=-55)
-    derivfunc = a*((0.025*(v-d)*(v-d)*(v-d))-u)
-  } else if (celltype==5) { 
-    VERBATIM
-    hoc_execerror("izhi2007b.mod ERRA: derivtype not set",0);
-    ENDVERBATIM
-  } else {
-    derivfunc = a*(b*(v-vr)-u) : Calculate recovery variable
-  }
 }
 
 : Input received
