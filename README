@@ -215,3 +215,5 @@ izhi2007b.mod and addition of izhi2007bS.mod documentation.
 connected using NetCons, the weight is in uS, same as for other
 Section-based cells in NEURON; and fixed a small bug in the INITIAL
 block in the mod files.
+
+20221216 Python3 migration via 2to3
