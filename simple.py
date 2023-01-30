@@ -55,21 +55,21 @@ h.tstop=1250
 #recd = {'u3a':[iz03a._ref_u], 'v3a':[iz03a._ref_V], 'u3b':[iz03b._ref_u], 'v3b':[sec03b(0.5)._ref_v], 
 recd={   'u7a':[iz07a._ref_u], 'v7a':[iz07a._ref_V], 'u7b':[iz07b._ref_u], 'v7b':[sec07b(0.5)._ref_v],
         'u7bw':[iz07bw.izh._ref_u], 'v7bw':[iz07bw.sec(0.5)._ref_v]}
-[(v.append(h.Vector(h.tstop/h.dt+100)),v[1].record(v[0])) for x,v in recd.iteritems()]
+[(v.append(h.Vector(h.tstop/h.dt+100)),v[1].record(v[0])) for x,v in list(recd.items())]
 def vtvec(vv): return np.linspace(0, len(vv)*h.dt, len(vv), endpoint=True)
 
 # run and plot
 fig = None
 def show (*vars):
-  pp.pprint(recd.keys())
+  pp.pprint(list(recd.keys()))
   global fig,tvec
   if fig is None: fig = plt.figure(figsize=(10,6), tight_layout=True)
-  if len(vars)==0: vars=recd.keys()
+  if len(vars)==0: vars=list(recd.keys())
   tvec=vtvec(recd['v7a'][1])
   plt.clf()
-  [plt.plot(tvec,v[1], label=x) for x,v in recd.iteritems() if x in vars]
+  [plt.plot(tvec,v[1], label=x) for x,v in list(recd.items()) if x in vars]
   plt.legend()
-  pp.pprint([v[1].as_numpy()[-5:] for x,v in recd.iteritems() if x in vars])
+  pp.pprint([v[1].as_numpy()[-5:] for x,v in list(recd.items()) if x in vars])
   plt.xlim(0,h.tstop)
 
 # h.run()

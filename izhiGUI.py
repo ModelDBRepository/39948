@@ -78,7 +78,7 @@ choices = collections.OrderedDict([
   ('2007 PP model' ,  (lambda: izh07.IzhiCell(host=izh07.dummy), lambda: izh._ref_V, izh07.type2007)),
   ('2007 Sec model' , (lambda: izh07.IzhiCell(), lambda: cell07.sec(0.5)._ref_v, izh07.type2007))])
 
-ch=choices.keys()
+ch=list(choices.keys())
 def newmodel (ty=None) : 
   "2003,2004 was the orig model; 2007 is the redesign; look at global izhtype if no "
   return izhtype.find('2007') > -1 if ty is None else ty.find('2007') > -1
@@ -127,7 +127,7 @@ def p (nm, pm=None) :
       graphx()
       playinit()
       h.run()
-  except: print sys.exc_info()[0],' :',sys.exc_info()[1]
+  except: print((sys.exc_info()[0],' :',sys.exc_info()[1]))
 
 def ivwrap (func, label=''):
   wrapper = h.VBox()
@@ -155,7 +155,7 @@ def playinit () :
   if name=='accomodation': bub.label[0] = "%s -- NOT IMPLEMENTED (different functional form;see izh.mod)"%(bub.label[0])
   if name=='inhibition-induced bursting': bub.label[0] = "%s -- NOT IMPLEMENTED (convergence problems)"%(bub.label[0])
   g.label(0.1,0.9,bub.label[0])
-  print bub.label[0]
+  print(bub.label[0])
   playvec.play_remove()
   playtvec.resize(0); playvec.resize(0)
   if name=='Class 1' :
@@ -210,7 +210,7 @@ class Bubox :
     self.xvalue('T1','T1')
     hbox1.intercept(0); hbox1.map("")
     hbox.intercept(1)
-    for ii,(k,v) in enumerate(li.iteritems()):
+    for ii,(k,v) in enumerate(li.items()):
       if ii%self.rows==0: h.xpanel("")
       h.xbutton(k, (lambda f, arg1, arg2: lambda: f(arg1,arg2))(p, k, v)) # alternative is to use functools.partial
       if ii%self.rows==self.rows-1: h.xpanel()
