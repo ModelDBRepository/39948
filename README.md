@@ -186,9 +186,13 @@ nrngui izhi2004a.hoc
 - izhi2007Comparison.pdf # side by side comparison of figures from paper with these sims
 
 ---
-
-2025-05-27 – Standardized to Markdown.
+## Changelog
 20151006 – Revision: A command "from neuron import h,gui" was added to the simple simulation demo.
+
 20160303 – Updated integration method of the izhi2007b cell model from Salva Dura. Addition of izhi2007bS.mod and replacement of izhi2007b.mod and revision of this readme's documentation of izhi2007b.mod and addition of izhi2007bS.mod documentation.
+
 20160802 – Salva Dura updated the parameters of the 2007 version so when connected using NetCons, the weight is in uS, same as for other Section-based cells in NEURON; and fixed a small bug in the INITIAL block in the mod files.
+
 20221216 – Python3 migration via 2to3
+
+20250527 – Standardized to Markdown.
